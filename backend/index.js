@@ -1,5 +1,6 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 axios.defaults.baseURL = 'https://climbcredit.com/api/v1';
 require('dotenv').config({
     path: './.env'
@@ -7,6 +8,9 @@ require('dotenv').config({
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin: '*'
+}));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -77,7 +81,7 @@ app.get('/applications', async (req, res) => {
         return res.send(response.data);
     } catch (error) {
         console.log(error);
-        return res.status(400).send(error);
+        return res.status(400).send("Something went wrong");
     }
 });
 
