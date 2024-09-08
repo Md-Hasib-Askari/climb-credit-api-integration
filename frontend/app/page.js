@@ -17,9 +17,7 @@ const headerStyle = {
 
 const contentStyle = {
   textAlign: 'center',
-  minHeight: 120,
-  lineHeight: '120px',
-  color: '#fff',
+  lineHeight: '40px',
 };
 
 const siderStyle = {
@@ -66,19 +64,19 @@ const tabItems = [
 
 const items = [
   {
-    key: 'sub1',
+    key: 'applications',
     label: 'Applications',
   },
   {
-    key: 'sub2',
+    key: 'enrolled',
     label: 'Enrolled',
   },
   {
-    key: 'sub4',
+    key: 'archived',
     label: 'Archived',
   },
   {
-    key: 'sub5',
+    key: 'allStudents',
     label: 'All students',
   },
 ];
@@ -99,7 +97,7 @@ export default function Home() {
     <Flex>
       <Layout style={layoutStyle}>
         <Sider width="25%" style={siderStyle}>
-        <Menu onClick={onClick} style={{ width: '100%' }} mode="vertical" items={items} />
+          <Menu onClick={onClick} style={{ width: '100%' }} mode="vertical" items={items} />
         </Sider>
         <Layout>
           <Header style={headerStyle}>
@@ -108,7 +106,16 @@ export default function Home() {
             }
           </Header>
           <Content style={{"padding": 10, ...contentStyle}}>
-            <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
+            {
+              activeKey === 'applications' ? (
+                <Tabs defaultActiveKey="1" items={tabItems} onChange={onChange} />
+              ) : (
+                <div className="flex h-52">
+                  <ApplicationComponent state={activeKey} />
+                </div>
+              )
+            }
+            
           </Content>
         </Layout>
       </Layout>

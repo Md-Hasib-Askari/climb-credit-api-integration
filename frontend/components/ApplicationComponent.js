@@ -98,6 +98,7 @@ export const ApplicationComponent = ({state}) => {
         },
     ]);
     const [columns, setColumns] = useState([]);
+    const [load, setLoad] = useState(false);
 
     useEffect(() => {
         setColumns(cols);
@@ -144,7 +145,7 @@ export const ApplicationComponent = ({state}) => {
             });
             setDataSource(dataSource);
         });
-    }, [state, current, pageSize]);
+    }, [state, current, pageSize, load]);
 
     return (
         <Flex className="flex flex-col">
@@ -173,6 +174,7 @@ export const ApplicationComponent = ({state}) => {
                         setPageSize(pageSize);
                     }}
                 />
+                <Button onClick={() => setLoad(!load)}>Reload</Button>
             </div>
         </Flex>
     );

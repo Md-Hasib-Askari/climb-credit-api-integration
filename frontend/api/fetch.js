@@ -14,6 +14,12 @@ export const fetchApplications = async (state, params) => {
             return fetchReadyToVerifyApplications(params);
         case 'allApplications':
             return fetchAllApplications(params);
+        case 'enrolled':
+            return fetchEnrolledApplications(params);
+        case 'archived':
+            return fetchArchivedApplications(params);
+        case 'allStudents':
+            return fetchAllStudents(params);
         default:
             return [];
     }
@@ -51,7 +57,7 @@ export const fetchAcceptedApplications = async (params) => {
     try {
         const response = await axios.get('/applications',  {
             params: {
-                portal_status: 'CONFIRMED',
+                application_status: 'FTIL_SENT',
                 ...params
             }
         });
@@ -76,6 +82,47 @@ export const fetchReadyToVerifyApplications = async (params) => {
 };
 
 export const fetchAllApplications = async (params) => {
+    try {
+        const response = await axios.get('/applications', {
+            params: {
+                ...params
+            }
+        });
+        return response.data;
+    } catch (error) {
+        return [];
+    }
+};
+
+export const fetchEnrolledApplications = async (params) => {
+    try {
+        const response = await axios.get('/applications', {
+            params: {
+                portal_status: 'CONFIRMED',
+                ...params
+            }
+        });
+        return response.data;
+    } catch (error) {
+        return [];
+    }
+};
+
+export const fetchArchivedApplications = async (params) => {
+    try {
+        const response = await axios.get('/applications', {
+            params: {
+                portal_status: 'ARCHIVED',
+                ...params
+            }
+        });
+        return response.data;
+    } catch (error) {
+        return [];
+    }
+};
+
+export const fetchAllStudents = async (params) => {
     try {
         const response = await axios.get('/applications', {
             params: {
